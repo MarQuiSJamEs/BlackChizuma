@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="page-title">BuildCore — Construction &amp; Maintenance</title>
+<meta name="description" content="Professional construction and maintenance services."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero" id="nav-logo-link"></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="#team">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text" id="hero-bg-text">BUILD</div>
+  <div class="hero-tag" id="hero-tag">Construction &amp; Maintenance Specialists</div>
+  <h1 id="hero-headline">Building <em>Tomorrow's</em> Infrastructure Today</h1>
+  <p id="hero-sub">Professional construction and maintenance services delivering excellence across every project — on time, on budget, built to last.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Get a Quote</a>
+    <a href="projects.html" class="btn-outline">View Projects</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num" id="stat-1-num">250+</div><div class="stat-label" id="stat-1-label">Projects Completed</div></div>
+    <div class="stat"><div class="stat-num" id="stat-2-num">15+</div><div class="stat-label" id="stat-2-label">Years Experience</div></div>
+    <div class="stat"><div class="stat-num" id="stat-3-num">98%</div><div class="stat-label" id="stat-3-label">Client Satisfaction</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">What We Do</div>
+  <h2 class="section-title">Our <em>Services</em></h2>
+  <div class="divider"></div>
+  <div id="services-wrap">
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section id="projects">
+  <div class="section-tag">Our Work</div>
+  <h2 class="section-title">Featured <em>Projects</em></h2>
+  <div class="divider"></div>
+  <div class="projects-grid" id="projects-grid"></div>
+  <a href="projects.html" class="section-view-all">View All Projects →</a>
+</section>
+
+<!-- TEAM / ABOUT -->
+<section id="team">
+  <div class="section-tag">Who We Are</div>
+  <h2 class="section-title">About <em>Us</em></h2>
+  <div class="divider"></div>
+  <div class="about-intro fade-in">
+    <div class="about-text">
+      <p id="about-p1"></p>
+      <p id="about-p2"></p>
+    </div>
+    <div class="about-visual">
+      <div class="about-box">
+        <div class="about-box-inner" id="about-tagline">BUILT<br>WITH<br>PURPOSE</div>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--white);margin-bottom:1.5rem;">Meet the Team</h3>
+  <div class="team-grid" id="team-grid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title">Contact <em>Us</em></h2>
+  <div class="divider"></div>
+  <div class="contact-layout">
+    <div class="contact-info fade-in">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-item-label">Address</div><div class="contact-item-val" id="contact-address"></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><div class="contact-item-label">Phone</div><div class="contact-item-val" id="contact-phone"></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-item-label">Email</div><div class="contact-item-val" id="contact-email"></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕒</div>
+        <div><div class="contact-item-label">Hours</div><div class="contact-item-val" id="contact-hours"></div></div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div class="form-row">
+        <div class="form-field"><label>Full Name</label><input type="text" id="cf-name" placeholder="John Banda"/></div>
+        <div class="form-field"><label>Email</label><input type="email" id="cf-email" placeholder="john@example.com"/></div>
+      </div>
+      <div class="form-field"><label>Service Interest</label>
+        <select id="cf-service"><option value="">Select a service...</option></select>
+      </div>
+      <div class="form-field"><label>Message</label><textarea id="cf-message" placeholder="Tell us about your project..."></textarea></div>
+      <button class="btn-primary" onclick="submitContact()" style="align-self:flex-start">Send Message</button>
+      <div class="form-success" id="form-success">✓ Message sent! We'll be in touch within 24 hours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED FEEDBACK -->
+<section id="feedback">
+  <div class="section-tag">What Clients Say</div>
+  <h2 class="section-title">Client <em>Reviews</em></h2>
+  <div class="divider"></div>
+  <div id="feedback-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;"></div>
+  <a href="feedback.html" class="section-view-all">Leave a Review / View All →</a>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-top">
+    <div id="footer-logo-wrap"></div>
+    <div class="footer-socials" id="footer-socials"></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy" id="footer-copy"></div>
+    <div class="footer-links">
+      <a href="projects.html">Projects</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+function render(){
+  const c=getData('company'), ct=getData('contact');
+  const services=getData('services'), projects=getData('projects');
+  const team=getData('team'), feedbacks=getData('feedbacks');
+
+  document.getElementById('page-title').textContent=c.name+' — Construction & Maintenance';
+  renderNavLogo(document.getElementById('nav-logo-link'));
+
+  // Hero
+  document.getElementById('hero-tag').textContent=c.tagline;
+  document.getElementById('hero-headline').innerHTML=c.heroHeadline;
+  document.getElementById('hero-sub').textContent=c.heroSub;
+  document.getElementById('hero-bg-text').textContent=c.name.split(' ')[0].toUpperCase();
+  document.getElementById('stat-1-num').textContent=c.stat1Num;
+  document.getElementById('stat-1-label').textContent=c.stat1Label;
+  document.getElementById('stat-2-num').textContent=c.stat2Num;
+  document.getElementById('stat-2-label').textContent=c.stat2Label;
+  document.getElementById('stat-3-num').textContent=c.stat3Num;
+  document.getElementById('stat-3-label').textContent=c.stat3Label;
+
+  // About
+  document.getElementById('about-p1').textContent=c.aboutP1;
+  document.getElementById('about-p2').textContent=c.aboutP2;
+  document.getElementById('about-tagline').innerHTML=(c.aboutTagline||'BUILT\nWITH\nPURPOSE').replace(/\n/g,'<br>');
+
+  // Contact
+  document.getElementById('contact-address').textContent=ct.address;
+  document.getElementById('contact-phone').textContent=ct.phone;
+  document.getElementById('contact-email').textContent=ct.email;
+  document.getElementById('contact-hours').textContent=ct.hours;
+
+  // Footer
+  renderFooterLogo(document.getElementById('footer-logo-wrap'));
+  document.getElementById('footer-copy').textContent=c.footerCopy;
+  renderSocials('footer-socials');
+
+  // Services — scrollable if > 8
+  const sg=document.getElementById('services-grid');
+  const wrap=document.getElementById('services-wrap');
+  sg.innerHTML=services.map(s=>`
+    <div class="service-card fade-in">
+      <div class="service-icon">${s.icon}</div>
+      <div class="service-name">${s.name}</div>
+      <div class="service-desc">${s.desc}</div>
+    </div>`).join('');
+  if(services.length>8) wrap.classList.add('services-scrollable');
+  else wrap.classList.remove('services-scrollable');
+
+  // Service dropdown
+  const sel=document.getElementById('cf-service');
+  sel.innerHTML='<option value="">Select a service...</option>'+
+    services.map(s=>`<option value="${s.name}">${s.name}</option>`).join('');
+
+  // Featured Projects — max 4, showOnHome only
+  const pg=document.getElementById('projects-grid');
+  const featProj=projects.filter(p=>p.showOnHome).slice(0,4);
+  pg.innerHTML=featProj.length?featProj.map(p=>`
+    <div class="project-card fade-in">
+      ${p.img?`<img class="project-img" src="${p.img}" alt="${p.title}"/>`:`<div class="project-img-placeholder">🏗️</div>`}
+      <div class="project-body">
+        <div class="project-cat">${p.category}</div>
+        <div class="project-title">${p.title}</div>
+        <div class="project-desc">${p.desc}</div>
+      </div>
+    </div>`).join(''):
+    '<div class="empty-state"><div class="empty-icon">🏗️</div>No featured projects yet.</div>';
+
+  // Team
+  const tg=document.getElementById('team-grid');
+  tg.innerHTML=team.map(m=>`
+    <div class="team-card fade-in">
+      ${m.photo?`<img class="team-photo" src="${m.photo}" alt="${m.name}"/>`:`<div class="team-photo-placeholder">👷</div>`}
+      <div class="team-name">${m.name}</div>
+      <div class="team-role">${m.role}</div>
+      <div class="team-bio">${m.bio}</div>
+    </div>`).join('');
+
+  // Featured Feedback — max 5, approved + showOnHome
+  const fb=document.getElementById('feedback-grid');
+  const featFb=feedbacks.filter(f=>f.approved&&f.showOnHome).slice(0,5);
+  fb.innerHTML=featFb.length?featFb.map(f=>`
+    <div class="feedback-item fade-in">
+      <div class="feedback-stars">${'⭐'.repeat(parseInt(f.rating))}</div>
+      <div class="feedback-text">"${f.text}"</div>
+      <div class="feedback-author">${f.name}</div>
+      ${f.response?`<div class="feedback-response">${f.response}</div>`:''}
+    </div>`).join(''):
+    '<div class="empty-state"><div class="empty-icon">⭐</div>No reviews yet. Be the first!</div>';
+
+  applyBackgrounds();
+  observeFadeIns();
+  setupStatCounters();
+}
+
+function submitContact(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const msg=document.getElementById('cf-message').value.trim();
+  if(!name||!email||!msg){alert('Please fill in all required fields.');return;}
+  const msgs=JSON.parse(localStorage.getItem('bc_messages')||'[]');
+  msgs.push({name,email,service:document.getElementById('cf-service').value,message:msg,date:new Date().toISOString(),read:false});
+  localStorage.setItem('bc_messages',JSON.stringify(msgs));
+  document.getElementById('cf-name').value='';
+  document.getElementById('cf-email').value='';
+  document.getElementById('cf-message').value='';
+  document.getElementById('cf-service').value='';
+  const s=document.getElementById('form-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',5000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initHamburger();
+  initSmoothScroll();
+  render();
+});
+window.addEventListener('storage',render);
+</script>
+</body>
+</html>

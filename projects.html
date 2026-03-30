@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects — BuildCore</title>
+<meta name="description" content="Our full project portfolio."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.filter-bar{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem;}
+.filter-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1.25rem;background:var(--grey2);color:var(--text-muted);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:all .2s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.filter-btn:hover,.filter-btn.active{background:var(--yellow);color:var(--black);border-color:var(--yellow);}
+.projects-count{font-size:.82rem;color:var(--text-muted);margin-bottom:1rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html" id="nav-logo-link"></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="projects.html" style="color:var(--yellow)">Projects</a></li>
+    <li><a href="index.html#team">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+  <div class="section-tag" style="justify-content:center">Our Portfolio</div>
+  <h1 class="section-title">All <em>Projects</em></h1>
+  <p style="color:var(--text-muted);max-width:500px;margin:.75rem auto 0;font-size:1rem;line-height:1.7;" id="proj-subtitle">Explore our complete portfolio of past and current work.</p>
+</div>
+
+<section id="projects" style="padding-top:2rem;">
+  <div class="filter-bar" id="filter-bar"></div>
+  <div class="projects-count" id="proj-count"></div>
+  <div class="projects-grid" id="projects-grid"></div>
+</section>
+
+<footer id="footer">
+  <div class="footer-top">
+    <div id="footer-logo-wrap"></div>
+    <div class="footer-socials" id="footer-socials"></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy" id="footer-copy"></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+let allProjects=[], activeFilter='All';
+
+function render(){
+  const c=getData('company');
+  document.title='Projects — '+c.name;
+  renderNavLogo(document.getElementById('nav-logo-link'));
+  renderFooterLogo(document.getElementById('footer-logo-wrap'));
+  document.getElementById('footer-copy').textContent=c.footerCopy;
+  renderSocials('footer-socials');
+  applyBackgrounds();
+
+  allProjects=getData('projects');
+  buildFilters();
+  renderProjects(activeFilter);
+}
+
+function buildFilters(){
+  const cats=['All',...new Set(allProjects.map(p=>p.category).filter(Boolean))];
+  const bar=document.getElementById('filter-bar');
+  bar.innerHTML=cats.map(c=>`<button class="filter-btn${c===activeFilter?' active':''}" onclick="filterProjects('${c}',this)">${c}</button>`).join('');
+}
+
+function filterProjects(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  activeFilter=cat;
+  renderProjects(cat);
+}
+
+function renderProjects(cat){
+  const filtered=cat==='All'?allProjects:allProjects.filter(p=>p.category===cat);
+  const grid=document.getElementById('projects-grid');
+  document.getElementById('proj-count').textContent=filtered.length+' project'+(filtered.length!==1?'s':'');
+  grid.innerHTML=filtered.length?filtered.map(p=>`
+    <div class="project-card fade-in">
+      ${p.img?`<img class="project-img" src="${p.img}" alt="${p.title}"/>`:`<div class="project-img-placeholder">🏗️</div>`}
+      <div class="project-body">
+        <div class="project-cat">${p.category}</div>
+        <div class="project-title">${p.title}</div>
+        <div class="project-desc">${p.desc}</div>
+      </div>
+    </div>`).join(''):
+    '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🏗️</div>No projects in this category yet.</div>';
+  observeFadeIns();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initHamburger();
+  render();
+});
+window.addEventListener('storage',render);
+</script>
+</body>
+</html>

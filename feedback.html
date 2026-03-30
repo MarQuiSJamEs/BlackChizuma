@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Feedback — BuildCore</title>
+<meta name="description" content="Client feedback and reviews."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.feedback-page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;margin-top:2rem;}
+.pending-notice{background:rgba(255,209,0,.08);border:1px solid rgba(255,209,0,.2);padding:1rem 1.5rem;font-size:.85rem;color:var(--yellow);margin-bottom:1.5rem;}
+.rating-display{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;}
+.rating-num{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--yellow);}
+.fb-date{font-size:.72rem;color:var(--text-muted);margin-top:.4rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html" id="nav-logo-link"></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="index.html#team">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="feedback.html" style="color:var(--yellow)">Feedback</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+  <div class="section-tag" style="justify-content:center">Share Your Experience</div>
+  <h1 class="section-title">Client <em>Feedback</em></h1>
+</div>
+
+<!-- SUBMIT FORM -->
+<section id="feedback" style="padding-top:1rem;padding-bottom:3rem;">
+  <div style="max-width:580px;">
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:1.5rem;">Leave a Review</h2>
+    <div class="feedback-form">
+      <div class="form-row">
+        <div class="form-field"><label>Your Name</label><input type="text" id="fb-name" placeholder="Jane Moyo"/></div>
+        <div class="form-field"><label>Rating</label>
+          <select id="fb-rating">
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="4">⭐⭐⭐⭐ Very Good</option>
+            <option value="3">⭐⭐⭐ Good</option>
+            <option value="2">⭐⭐ Fair</option>
+            <option value="1">⭐ Poor</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field"><label>Your Feedback</label><textarea id="fb-text" placeholder="Tell us about your experience..."></textarea></div>
+      <button class="btn-primary" onclick="submitFeedback()" style="align-self:flex-start">Submit Review</button>
+      <div class="form-success" id="fb-success">✓ Thank you! Your review is pending approval.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL APPROVED FEEDBACK -->
+<section style="padding-top:0;background:var(--grey)" id="feedback-wall-section">
+  <div class="section-tag">What Our Clients Say</div>
+  <h2 class="section-title">All <em>Reviews</em></h2>
+  <div class="divider"></div>
+  <div id="fb-count" style="font-size:.82rem;color:var(--text-muted);margin-bottom:1rem;"></div>
+  <div class="feedback-page-grid" id="feedback-wall"></div>
+</section>
+
+<footer id="footer">
+  <div class="footer-top">
+    <div id="footer-logo-wrap"></div>
+    <div class="footer-socials" id="footer-socials"></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy" id="footer-copy"></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+function render(){
+  const c=getData('company');
+  document.title='Feedback — '+c.name;
+  renderNavLogo(document.getElementById('nav-logo-link'));
+  renderFooterLogo(document.getElementById('footer-logo-wrap'));
+  document.getElementById('footer-copy').textContent=c.footerCopy;
+  renderSocials('footer-socials');
+  applyBackgrounds();
+  renderWall();
+}
+
+function renderWall(){
+  const all=getData('feedbacks');
+  const approved=all.filter(f=>f.approved);
+  const wall=document.getElementById('feedback-wall');
+  const cnt=document.getElementById('fb-count');
+  cnt.textContent=approved.length+' review'+(approved.length!==1?'s':'');
+  wall.innerHTML=approved.length?approved.map(f=>`
+    <div class="feedback-item fade-in">
+      <div class="rating-display">
+        ${'⭐'.repeat(parseInt(f.rating))}
+        <span class="rating-num">${f.rating}/5</span>
+      </div>
+      <div class="feedback-text">"${f.text}"</div>
+      <div class="feedback-author">${f.name}</div>
+      ${f.response?`<div class="feedback-response">${f.response}</div>`:''}
+      ${f.date?`<div class="fb-date">${new Date(f.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>`:''}
+    </div>`).join(''):
+    '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">⭐</div>No reviews yet. Be the first above!</div>';
+  observeFadeIns();
+}
+
+function submitFeedback(){
+  const name=document.getElementById('fb-name').value.trim();
+  const text=document.getElementById('fb-text').value.trim();
+  const rating=document.getElementById('fb-rating').value;
+  if(!name||!text){alert('Please fill in your name and feedback.');return;}
+  const all=getData('feedbacks');
+  all.unshift({name,rating:parseInt(rating),text,response:'',approved:false,showOnHome:false,date:new Date().toISOString()});
+  setData('feedbacks',all);
+  document.getElementById('fb-name').value='';
+  document.getElementById('fb-text').value='';
+  const s=document.getElementById('fb-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',6000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initHamburger();
+  render();
+});
+window.addEventListener('storage',()=>{renderWall();});
+</script>
+</body>
+</html>
